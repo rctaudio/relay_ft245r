@@ -191,7 +191,8 @@ class FT245R:
 
         @return: status
         """
-
+        #update status in relay state first
+        self._getstatus_byte()
         # Check for errors
         if relay_num < self.RELAY_MIN or relay_num > self.RELAY_MAX:
             raise ValueError('Relay number {} is invalid'.format(relay_num))
