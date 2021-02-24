@@ -151,7 +151,20 @@ class FT245R:
             self.is_connected = True
             self.relay_state = self._getstatus_byte()
 
+    def getid(self, dev):
+        """ 
+        Gets the id of a device.
+        @param dev: device
+        @return: id
+        """
 
+        if 0 == len(dev.langids):
+            langid = 0
+        else:
+            langid = dev.langids[0]
+
+        return usb.util.get_string(dev, 3, langid)
+            
     def _getstatus_byte(self):
         """
         Gets a byte which represents the status of all 8 relays.
