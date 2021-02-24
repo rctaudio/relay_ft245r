@@ -184,15 +184,20 @@ class FT245R:
 
         return buf[0]
 
-
+    def updatestatus(self):
+        """
+        updates relay status
+        """
+        
+        self.relay_state = self._getstatus_byte()
+        
     def getstatus(self, relay_num):
         """
         Returns 1 if relay relay_num is on, 0 if off.
 
         @return: status
         """
-        #update status in relay state first
-        self._getstatus_byte()
+
         # Check for errors
         if relay_num < self.RELAY_MIN or relay_num > self.RELAY_MAX:
             raise ValueError('Relay number {} is invalid'.format(relay_num))
